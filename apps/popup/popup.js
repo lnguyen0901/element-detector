@@ -74,24 +74,24 @@ const getValueFromTab = (info) => {
 
 $(document).ready(() => {
   $("#options").on("click", () => {
-    // chrome.tabs.create({
-    //   url: chrome.runtime.getURL("popup.html#window"),
-    // });
-    const id = String(new Date().getTime());
-    chrome.notifications.create(id, {
-      title: "Ăn điểm rồi anh ei!!!!!",
-      message: `1.2322 - 1.4232 (${id}%)`,
-      iconUrl: "./styles/imgs/128.png",
-      type: "basic",
-      // requireInteraction: true,
-      buttons: [
-        {
-          title: "Đóng",
-        },
-      ],
+    chrome.tabs.create({
+      url: chrome.runtime.getURL("popup.html#window"),
     });
+    // const id = String(new Date().getTime());
+    // chrome.notifications.create(id, {
+    //   title: "Ăn điểm rồi anh ei!!!!!",
+    //   message: `1.2322 - 1.4232 (${id}%)`,
+    //   iconUrl: "./styles/imgs/128.png",
+    //   type: "basic",
+    //   // requireInteraction: true,
+    //   buttons: [
+    //     {
+    //       title: "Đóng",
+    //     },
+    //   ],
+    // });
 
-    playSound();
+    // playSound();
   });
 
   const render = () => {
