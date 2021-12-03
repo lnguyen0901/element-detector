@@ -6,6 +6,23 @@ const NOTIFICATION_IDS = [];
 const DEFAULT_TIMER = 500;
 const TIMERS = [];
 
+const playSound = () => {
+  var audio = document.getElementById("play-sound");
+
+  if (!audio) {
+    audio = document.createElement("audio");
+    audio.id = "play-sound";
+    document.body.appendChild(audio);
+    audio.volume = 1;
+    audio.src = "./audio/ringing.ogg";
+  }
+
+  audio.play();
+  setTimeout(() => {
+    audio.pause();
+  }, 300);
+};
+
 const getValueFromTab = (info) => {
   return new Promise((resolve) => {
     const query = {
@@ -57,22 +74,24 @@ const getValueFromTab = (info) => {
 
 $(document).ready(() => {
   $("#options").on("click", () => {
-    chrome.tabs.create({
-      url: chrome.runtime.getURL("popup.html#window"),
-    });
-    // const id = String(new Date().getTime());
-    // chrome.notifications.create(id, {
-    //   title: "Ăn điểm rồi anh ei!!!!!",
-    //   message: `1.2322 - 1.4232 (${id}%)`,
-    //   iconUrl: "./styles/imgs/128.png",
-    //   type: "basic",
-    //   requireInteraction: true,
-    //   buttons: [
-    //     {
-    //       title: "Đóng",
-    //     },
-    //   ],
+    // chrome.tabs.create({
+    //   url: chrome.runtime.getURL("popup.html#window"),
     // });
+    const id = String(new Date().getTime());
+    chrome.notifications.create(id, {
+      title: "Ăn điểm rồi anh ei!!!!!",
+      message: `1.2322 - 1.4232 (${id}%)`,
+      iconUrl: "./styles/imgs/128.png",
+      type: "basic",
+      // requireInteraction: true,
+      buttons: [
+        {
+          title: "Đóng",
+        },
+      ],
+    });
+
+    playSound();
   });
 
   const render = () => {
@@ -288,7 +307,7 @@ $(document).ready(() => {
         message: `${value1} - ${value2} (${thresholdValue.toFixed(2)}%)`,
         iconUrl: "./styles/imgs/128.png",
         type: `basic`,
-        requireInteraction: true,
+        // requireInteraction: true,
         buttons: [
           {
             title: "Đóng",
@@ -303,6 +322,8 @@ $(document).ready(() => {
         chrome.notifications.create(NOTIFICATION_ID, data);
         NOTIFICATION_IDS.push(NOTIFICATION_ID);
       }
+
+      playSound();
     }
   };
 });
