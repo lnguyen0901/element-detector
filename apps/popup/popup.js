@@ -60,12 +60,18 @@ $(document).ready(() => {
     chrome.tabs.create({
       url: chrome.runtime.getURL("popup.html#window"),
     });
-    // chrome.notifications.create("", {
+    // const id = String(new Date().getTime());
+    // chrome.notifications.create(id, {
     //   title: "Ăn điểm rồi anh ei!!!!!",
-    //   message: "1.2322 - 1.4232 (1.3%)",
+    //   message: `1.2322 - 1.4232 (${id}%)`,
     //   iconUrl: "./styles/imgs/128.png",
-    //   type: "progress",
-    //   progress: 100,
+    //   type: "basic",
+    //   requireInteraction: true,
+    //   buttons: [
+    //     {
+    //       title: "Đóng",
+    //     },
+    //   ],
     // });
   });
 
@@ -281,8 +287,13 @@ $(document).ready(() => {
         title: `${item.items[0].origin} - ${item.items[1].origin}`,
         message: `${value1} - ${value2} (${thresholdValue.toFixed(2)}%)`,
         iconUrl: "./styles/imgs/128.png",
-        type: `progress`,
-        progress: 100,
+        type: `basic`,
+        requireInteraction: true,
+        buttons: [
+          {
+            title: "Đóng",
+          },
+        ],
       };
 
       const NOTIFICATION_ID = `notification${index}`;
